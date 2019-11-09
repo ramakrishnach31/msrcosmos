@@ -1,0 +1,68 @@
+ <div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+      <h2 class="text-center text-success mt-3">REGISRATION FORM</h2>
+    <form #ref="ngForm" (ngSubmit)="register(ref.value)">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" name="username" class="form-control" ngModel #ref1="ngModel" required>
+        <label *ngIf="ref1.invalid && ref1.touched">
+          <div class="text-danger">*name is manadatory</div>
+        </label>
+      </div>
+
+      <div class="form-group">
+          <label>Middle Name</label>
+          <input type="text" name="username" class="form-control" ngModel #ref1="ngModel" >
+          
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="lusername" class="form-control" ngModel #ref1="ngModel" required>
+          <label *ngIf="ref1.invalid && ref1.touched">
+            <div class="text-danger">*name is manadatory</div>
+          </label>
+        </div>
+
+      <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" class="form-control" ngModel #ref2="ngModel" required>
+          <label *ngIf="ref2.invalid && (ref2.dirty || ref2.touched)">
+            <div class="text-danger">*Email is manadatory</div>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Mobile No</label>
+          <input type="number" name="mobile" class="form-control" class="form-control" ngModel #ref4="ngModel" required>
+          <label *ngIf="ref4.invalid && (ref4.dirty || ref4.touched)">
+            <div class="text-danger">*Mobile no is manadatory</div>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control" ngModel class="form-control" ngModel #ref3="ngModel"
+            required minlength="5">
+          <div *ngIf="ref3.invalid && (ref3.dirty || ref3.touched)">
+            <div *ngIf="ref3.errors.minlength" class="text-danger">*password must be atlest 5 characters long</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" name="password" class="form-control" ngModel class="form-control" ngModel #ref3="ngModel"
+            required minlength="5">
+          <div *ngIf="ref3.invalid && (ref3.dirty || ref3.touched)">
+            <div *ngIf="ref3.errors.minlength" class="text-danger">*password must be atlest 5 characters long</div>
+          </div>
+        </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Register</button></div>
+    </form>
+  </div>
+  <div class="col-sm-3"></div>
+</div>
+ 
