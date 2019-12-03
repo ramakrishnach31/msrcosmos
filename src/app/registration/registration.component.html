@@ -1,68 +1,83 @@
+ <div class="container">
  <div class="row">
-  <div class="col-sm-3"></div>
-  <div class="col-sm-6">
-      <h2 class="text-center text-success mt-3">REGISRATION FORM</h2>
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+      <h2 class="text-center text-primary mt-3">REGISRATION FORM</h2>
     <form #ref="ngForm" (ngSubmit)="register(ref.value)">
+
+        <div class="form-group">
+            <label>ID:</label>
+            <input type="number" name="id" placeholder="id" class="form-control" ngModel #id="ngModel" required >
+            <label *ngIf="id.invalid && (id.dirty || id.touched)">
+              <div class="text-danger">*Id required</div>
+            </label>
+          </div>
+
       <div class="form-group">
         <label>First Name</label>
-        <input type="text" name="username" class="form-control" ngModel #ref1="ngModel" required>
-        <label *ngIf="ref1.invalid && ref1.touched">
+        <input type="text" name="username" class="form-control" ngModel #fname="ngModel" required>
+        <label *ngIf="fname.invalid && (fname.touched || fname.dirty)" >
           <div class="text-danger">*name is manadatory</div>
         </label>
       </div>
 
       <div class="form-group">
           <label>Middle Name</label>
-          <input type="text" name="username" class="form-control" ngModel #ref1="ngModel" >
+          <input type="text" name="username" placeholder="optional" class="form-control" ngModel #ref1="ngModel" >
           
         </div>
 
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" name="lusername" class="form-control" ngModel #ref1="ngModel" required>
-          <label *ngIf="ref1.invalid && ref1.touched">
+          <input type="text" name="lusername" class="form-control" ngModel #lname="ngModel" required>
+          <label *ngIf="lname.invalid && (lname.touched || lname.dirty)">
             <div class="text-danger">*name is manadatory</div>
           </label>
         </div>
 
       <div class="form-group">
           <label>Email</label>
-          <input type="email" name="email" class="form-control" class="form-control" ngModel #ref2="ngModel" required>
-          <label *ngIf="ref2.invalid && (ref2.dirty || ref2.touched)">
+          <input type="email" name="email" class="form-control" class="form-control" ngModel #email="ngModel" required>
+          <label *ngIf="email.invalid && (email.dirty || email.touched)">
             <div class="text-danger">*Email is manadatory</div>
           </label>
         </div>
 
         <div class="form-group">
           <label>Mobile No</label>
-          <input type="number" name="mobile" class="form-control" class="form-control" ngModel #ref4="ngModel" required>
-          <label *ngIf="ref4.invalid && (ref4.dirty || ref4.touched)">
+          <input type="number" name="mobile" class="form-control" class="form-control" ngModel #mobile="ngModel" required>
+          <label *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
             <div class="text-danger">*Mobile no is manadatory</div>
           </label>
         </div>
 
         <div class="form-group">
           <label>Password</label>
-          <input type="password" name="password" class="form-control" ngModel class="form-control" ngModel #ref3="ngModel"
-            required minlength="5">
-          <div *ngIf="ref3.invalid && (ref3.dirty || ref3.touched)">
-            <div *ngIf="ref3.errors.minlength" class="text-danger">*password must be atlest 5 characters long</div>
+          <input type="password" name="password" class="form-control" ngModel class="form-control" ngModel #password="ngModel"
+            required minlength="8" maxlength="15">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)">
+              <div *ngIf="password.errors.required" class="text-danger">*password is required.</div>
+            <div *ngIf="password.errors.minlength" class="text-danger">*password must be atlest 8 characters long</div>
           </div>
         </div>
         
-        <div class="form-group">
-          <label>Confirm Password</label>
-          <input type="password" name="password" class="form-control" ngModel class="form-control" ngModel #ref3="ngModel"
-            required minlength="5">
-          <div *ngIf="ref3.invalid && (ref3.dirty || ref3.touched)">
-            <div *ngIf="ref3.errors.minlength" class="text-danger">*password must be atlest 5 characters long</div>
-          </div>
-        </div>
+       
 
+        <div class="form-group">
+            <label>Confirm Password:</label>
+            <input type="password" class="form-control" #confirmpassword="ngModel"  name="cpassword" minlength="8" maxlength="15" required ngModel>
+            <div *ngIf="confirmpassword.invalid&&(confirmpassword.dirty||confirmpassword.touched)" >
+              <div *ngIf="confirmpassword.errors.required" class="text-danger">*Confirm password is required.</div>
+              <div *ngIf="confirmpassword.errors.minlength" class="text-danger">*Confirm password should be minimum 8 characters</div>  
+          </div>
+          <div *ngIf="confirmpassword.dirty && ( confirmpassword.value!=password.value) && confirmpassword.value!=''">
+                  <div class="text-danger">*Confirm password should be match with password </div> </div>
+            
+          </div>
       <div class="text-center">
-        <button type="submit" class="btn btn-primary">Register</button></div>
+        <button type="submit" class="btn btn-primary" [disabled]="!ref.form.valid">Register</button></div>
     </form>
   </div>
-  <div class="col-sm-3"></div>
+  <div class="col-md-3"></div>
 </div>
- 
+</div>

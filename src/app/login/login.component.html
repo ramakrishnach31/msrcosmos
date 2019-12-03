@@ -2,29 +2,30 @@
     <div class="row mt-5">
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
-            <h1 class="text-center text-success">LOGIN</h1>
+            <h1 class="text-center text-warning">LOGIN</h1>
             <form #ref="ngForm" (ngSubmit)="toLogin(ref.value)">
+
+                   
                 <div class="form-group">
                     <label for="">Email</label>
                     <input type="email" name="email" class="form-control" ngModel #ref2="ngModel" required>
-                    <label *ngIf="ref2.invalid && (ref2.dirty || ref2.touched)">
-                        <div class="text-danger">email is manadatory</div>
+                    <label *ngIf="ref2.invalid && (ref2.touched || ref2.dirty)" >
+                        <div class="text-danger">*mail is manadatory</div>
                     </label>
                 </div>
                 <div class="form-group">
                     <label>Password :</label>
                     <input type="password" name="password" class="form-control" ngModel #ref3="ngModel" required
                         minlength="5">
-                    <div *ngIf="ref3.invalid && (ref3.dirty || ref3.touched)">
-                        <div *ngIf="ref3.errors.minlength" class="text-danger">*password must be atlest 5 characters
-                            long</div>
-                    </div>
+                        <label *ngIf="ref3.invalid && (ref3.touched || ref3.dirty)" >
+                                <div class="text-danger">*Password is manadatory</div>
+                         </label>
                 </div>
                 
               
 
                 <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-primary">Login</button></div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!ref.valid">Login</button></div>
             </form>
             <div class="text-center mt-3">new user ?<a routerLink="/register">register</a></div>
         </div>

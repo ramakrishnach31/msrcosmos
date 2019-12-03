@@ -81,39 +81,57 @@ userroute.post('/login',(req,res)=>{
 userroute.put('/updateuser',(req,res)=>{
     dbo=connObj();
     
-    dbo.collection('userdetails').updateOne({ username: req.body.username  }, 
-        { $set: { username: req.body.username,
+    dbo.collection('userdetails').update({ id: {$eq:req.body.id}  }, 
+        { $set: {
+                username: req.body.username,
                 musername: req.body.musername,
                 lusername:req.body.lusername,
                 email:req.body.email,
                    mobile:req.body.mobile,
-                 } },{multi:true},(err,success)=>{
+                 } },(err,success)=>{
                      if(err){
                          console.log("error while updating data",err)
                      }
                      else{
-                         res.json({
-                             'message':"Data updated successfully",
-                                  })
+                         dbo.collection('userdetails').find().toArray((err,updatedData)=>{
+                             if(err){
+                                 console.log("error while finding",err)
+                             }
+                             else{
+                                 res.json({"message":"Document Updated success",
+                                            'data':updatedData}  )
+                             }
+                         })
                      }
                  })
 })
 
 //req handler for deleting request
 
-userroute.delete('/delete/:username',(req,res)=>{
+userroute.delete('/delete/:id',(req,res)=>{
     dbo=connObj();
-    console.log(req.params)
-    dbo.collection('userdetails').deleteOne({username:req.params.username},(err,success)=>{
+    var id=(+req.params.id)
+    dbo.collection('userdetails').deleteOne({ id: { $eq: id } },(err,success)=>{
         if(err){
             console.log("error while deleting",err)
         }
         else{
-            res.json({'message':"User deleted successfully",
-                      'data':success})
+            dbo.collection('userdetails').find().toArray((err,resultData)=>{
+                if(err){
+                    console.log("error while searching",err)
+                }
+                else{
+                    res.json({
+                           'message':"Deleted Success",
+                            'data':resultData
+                        })
+                }
+            })
         }
     })
 })
+
+
 //export this file to server.js
 
 module.exports=userroute;

@@ -9,13 +9,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserdashboardComponent implements OnInit {
 
-  users:any[]=[];
-
-  deletedData:any;
-  
-  
-b: boolean = false
-
+  users:any;
+  b: boolean = false
+  id:any;
   constructor(private userdb:UserdashboardService,private hc:HttpClient) { }
 
   ngOnInit() {
@@ -30,24 +26,21 @@ b: boolean = false
     }
 
     //method for updating data
-    onSubmit(data){
+    updateData(data){
       this.b=false;
-      this.userdb.updateData(data).subscribe((res)=>{
+      this.hc.put('main/updateuser',data).subscribe((res)=>{
         alert(res['message'])
+        this.users=res['data']
       })
      
     }
 
     //method for deleting document
-
-    toDelete(email){
-      this.userdb.toDeleteData(email).subscribe((res)=>{
-        alert(res['message'])
-        // this.users=res['data']
-      })
-      this.hc.get('main/userdata').subscribe((res)=>{
-        this.users=res['data']
-      })
+    toDelete(id){
+     this.hc.delete(`main/delete/${id}`).subscribe((res)=>{
+       alert(res['message'])
+       this.users=res['data']
+     })
     }
 }
 

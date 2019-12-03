@@ -14,19 +14,4 @@ export class UserdashboardService {
   {
     return this.hc.get('main/userdata')
   }
-
-  //method for updating data at backend
-
-  updateData(data):Observable<any>
-  {
-    return this.hc.put('main/updateuser',data)
-  }
-
-  //method for deleting data
-
-  toDeleteData(data):Observable<any>
-  {
-    return this.hc.delete(`main/delete/${data}`)
-    
-  }
 }
